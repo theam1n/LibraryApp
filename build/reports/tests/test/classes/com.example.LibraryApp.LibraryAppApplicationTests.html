@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - LibraryAppApplicationTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>LibraryAppApplicationTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.LibraryApp.html">com.example.LibraryApp</a> &gt; LibraryAppApplicationTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.350s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">contextLoads()</td>
+<td class="success">1.350s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>21:18:33.855 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.LibraryApp.LibraryAppApplicationTests]: LibraryAppApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:18:33.998 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.LibraryApp.LibraryAppApplication for test class com.example.LibraryApp.LibraryAppApplicationTests
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.0)
+
+2024-06-16T21:18:34.729+04:00  INFO 13652 --- [    Test worker] c.e.L.LibraryAppApplicationTests         : Starting LibraryAppApplicationTests using Java 17.0.9 with PID 13652 (started by Amin in C:\Users\Amin\Downloads\LibraryApp)
+2024-06-16T21:18:34.729+04:00  INFO 13652 --- [    Test worker] c.e.L.LibraryAppApplicationTests         : The following 2 profiles are active: &quot;db&quot;, &quot;common&quot;
+2024-06-16T21:18:36.245+04:00  INFO 13652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-16T21:18:36.245+04:00  INFO 13652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-16T21:18:36.470+04:00  INFO 13652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 205 ms. Found 7 JPA repository interfaces.
+2024-06-16T21:18:36.501+04:00  INFO 13652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-16T21:18:36.501+04:00  INFO 13652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-06-16T21:18:36.517+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.AuthorRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.533+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.BookRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.533+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.GenreRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.533+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.PublishingHouseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.533+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.ReviewRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.535+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.535+04:00  INFO 13652 --- [    Test worker] .RepositoryConfigurationExtensionSupport : Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.LibraryApp.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-06-16T21:18:36.535+04:00  INFO 13652 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 20 ms. Found 0 Redis repository interfaces.
+2024-06-16T21:18:37.929+04:00  INFO 13652 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-06-16T21:18:38.207+04:00  INFO 13652 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@cf7db25a
+2024-06-16T21:18:38.207+04:00  INFO 13652 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-06-16T21:18:38.415+04:00  INFO 13652 --- [    Test worker] liquibase.database                       : Set default schema name to public
+2024-06-16T21:18:38.884+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-01-create-book-table.yaml
+2024-06-16T21:18:38.893+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-02-create-author-table.yaml
+2024-06-16T21:18:38.893+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-03-create-book-author-table.yaml
+2024-06-16T21:18:38.909+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-04-create-genre-table.yaml
+2024-06-16T21:18:38.909+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-05-create-book-genre-table.yaml
+2024-06-16T21:18:38.927+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-06-create-publishing-house-table.yaml
+2024-06-16T21:18:38.933+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-07-create-review-table.yaml
+2024-06-16T21:18:38.938+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-08-create-users-table.yaml
+2024-06-16T21:18:38.938+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-09-create-role-table.yaml
+2024-06-16T21:18:38.952+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading resource: db/changelog/v1/2024-06-11-10-create-user-role-table.yaml
+2024-06-16T21:18:39.108+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2024-06-16T21:18:39.216+04:00  INFO 13652 --- [    Test worker] liquibase.ui                             : Database is up to date, no changesets to execute
+2024-06-16T21:18:39.221+04:00  INFO 13652 --- [    Test worker] liquibase.changelog                      : Reading from public.databasechangelog
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : UPDATE SUMMARY
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : Run:                          0
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : Previously run:              10
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : Filtered out:                 0
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : -------------------------------
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : Total change sets:           10
+2024-06-16T21:18:39.235+04:00  INFO 13652 --- [    Test worker] liquibase.util                           : Update summary generated
+2024-06-16T21:18:39.284+04:00  INFO 13652 --- [    Test worker] liquibase.lockservice                    : Successfully released change log lock
+2024-06-16T21:18:39.291+04:00  INFO 13652 --- [    Test worker] liquibase.command                        : Command execution complete
+2024-06-16T21:18:39.433+04:00  INFO 13652 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-16T21:18:39.514+04:00  INFO 13652 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-06-16T21:18:39.571+04:00  INFO 13652 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-06-16T21:18:39.994+04:00  INFO 13652 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-16T21:18:40.066+04:00  WARN 13652 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-16T21:18:41.708+04:00  INFO 13652 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-16T21:18:41.804+04:00  INFO 13652 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-16T21:18:42.583+04:00  INFO 13652 --- [    Test worker] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-06-16T21:18:42.592+04:00  WARN 13652 --- [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-06-16T21:18:42.816+04:00  WARN 13652 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-16T21:18:43.542+04:00  INFO 13652 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@8969766, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@80c630ef, org.springframework.security.web.context.SecurityContextHolderFilter@747884ac, org.springframework.security.web.header.HeaderWriterFilter@a90b25da, org.springframework.web.filter.CorsFilter@e1f078ee, org.springframework.security.web.authentication.logout.LogoutFilter@4816fc61, com.example.LibraryApp.filter.JwtAuthFilter@8927da63, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@79e5475c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b1eec338, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d4f1fbac, org.springframework.security.web.access.ExceptionTranslationFilter@8be981ad, org.springframework.security.web.access.intercept.AuthorizationFilter@b66b8673]
+2024-06-16T21:18:44.414+04:00  INFO 13652 --- [    Test worker] c.e.L.LibraryAppApplicationTests         : Started LibraryAppApplicationTests in 10.142 seconds (process running for 11.844)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.8</a> at Jun 16, 2024, 9:18:46 PM</p>
+</div>
+</div>
+</body>
+</html>

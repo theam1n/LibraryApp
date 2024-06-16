@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2024-06-11-04
+      author: Amin
+      changes:
+        - createTable:
+            tableName: genre
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: is_enabled
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+

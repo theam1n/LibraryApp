@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2024-06-11-07
+      author: Amin
+      changes:
+        - createTable:
+            tableName: review
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: rating
+                  type: NUMERIC(5,2)
+              - column:
+                  name: comment
+                  type: TEXT
+              - column:
+                  name: is_enabled
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: book_id
+                  type: BIGINT
+
+        - addForeignKeyConstraint:
+            baseTableName: review
+            baseColumnNames: book_id
+            referencedTableName: book
+            referencedColumnNames: id
+            constraintName: fk_review_book
+

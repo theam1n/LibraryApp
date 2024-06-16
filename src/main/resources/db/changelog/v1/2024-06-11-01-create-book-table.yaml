@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2024-06-11-01
+      author: Amin
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(255)
+              - column:
+                  name: price
+                  type: NUMERIC(19,4)
+              - column:
+                  name: publication_date
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: average_rating
+                  type: NUMERIC(5,2)
+                  defaultValueNumeric: 0
+              - column:
+                  name: publishing_house_id
+                  type: BIGINT
+              - column:
+                  name: is_enabled
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+
