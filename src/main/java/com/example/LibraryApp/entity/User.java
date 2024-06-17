@@ -23,6 +23,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@NamedEntityGraph(
+        name = "user-roles-graph",
+        attributeNodes = @NamedAttributeNode("roles")
+)
 public class User implements UserDetails {
 
     @Id
@@ -48,8 +52,7 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private ZonedDateTime updatedAt;
 
-    @ManyToMany(cascade = {CascadeType.MERGE},
-            fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
