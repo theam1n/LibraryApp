@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,10 +40,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    @Cacheable(value = "reviewss", key = "'allReviews'")
+    @Cacheable(value = "reviews", key = "'allReviews'")
     public Page<ReviewDto> getAllReviews(Pageable pageable) {
 
-        var reviews = reviewRepository.findAll(pageable);
+        var reviews = reviewRepository.findAllByIsEnabledTrue(pageable);
         var reviewDtos = reviews.map(reviewMapper:: entityToDto);
 
         return reviewDtos;
@@ -72,7 +73,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    @CacheEvict(value = "reviews", key = "'reviewById_' + #id")
+    @Caching(evict = {
+            @CacheEvict(value = "reviews", key = "'allReviews'", allEntries = true),
+            @CacheEvict(value = "reviews", key = "'reviewById_' + #review.id")
+    })
     public void deleteReview(Long id) {
 
         var review = findById(id);
@@ -82,7 +86,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private Review findById(Long id) {
-        return Optional.ofNullable(reviewRepository.findById(id)
+        return Optional.ofNullable(reviewRepository.findByIdAndIsEnabledTrue(id)
                         .orElseThrow(() -> new NotFoundException("Review not found with id: " + id)))
                 .get();
     }

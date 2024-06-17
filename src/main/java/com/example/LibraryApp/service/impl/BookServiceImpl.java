@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class BookServiceImpl implements BookService {
     @Cacheable(value = "books", key = "'allBooks'")
     public Page<BookDto> getAllBooks(Pageable pageable) {
 
-        var books = bookRepository.findAll(pageable);
+        var books = bookRepository.findAllByIsEnabledTrue(pageable);
         var bookDtos = books.map(bookMapper:: entityToDto);
 
         return bookDtos;
@@ -72,7 +73,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @CacheEvict(value = "books", key = "'bookById_' + #id")
+    @Caching(evict = {
+            @CacheEvict(value = "books", key = "'allBooks'", allEntries = true),
+            @CacheEvict(value = "books", key = "'bookById_' + #book.id")
+    })
     public void deleteBook(Long id) {
 
         var book = findById(id);
@@ -101,7 +105,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private Book findById(Long id) {
-        return Optional.ofNullable(bookRepository.findById(id)
+        return Optional.ofNullable(bookRepository.findByIdAndIsEnabledTrue(id)
                 .orElseThrow(() -> new NotFoundException("Book not found with id: " + id))).get();
     }
 }

@@ -72,12 +72,12 @@ public class LibraryAppApplication implements CommandLineRunner {
 
 		// books
 		Set<Author> authors1 = new HashSet<>();
-		authors1.add(authorRepository.findById(1L).get());
+		authors1.add(authorRepository.findByIdAndIsEnabledTrue(1L).get());
 
-		PublishingHouse publishingHouse = publishingHouseRepository.findById(1L).get();
+		PublishingHouse publishingHouse = publishingHouseRepository.findByIdAndIsEnabledTrue(1L).get();
 
 		Set<Genre> genres1 = new HashSet<>();
-		genres1.add(genreRepository.findById(1L).get());
+		genres1.add(genreRepository.findByIdAndIsEnabledTrue(1L).get());
 
 		bookRepository.save(Book.builder().title("The Great Gatsby").price(new BigDecimal("19.99"))
 				.publicationDate(ZonedDateTime.now().minusYears(5)).publishingHouse(publishingHouse)
@@ -85,17 +85,17 @@ public class LibraryAppApplication implements CommandLineRunner {
 
 
 		Set<Author> authors2 = new HashSet<>();
-		authors2.add(authorRepository.findById(2L).get());
+		authors2.add(authorRepository.findByIdAndIsEnabledTrue(2L).get());
 
 		Set<Genre> genres2 = new HashSet<>();
-		genres2.add(genreRepository.findById(2L).get());
+		genres2.add(genreRepository.findByIdAndIsEnabledTrue(2L).get());
 
 		bookRepository.save(Book.builder().title("To Kill a Mockingbird")
 				.price(new BigDecimal("15.50")).publicationDate(ZonedDateTime.now().minusYears(10))
 				.publishingHouse(publishingHouse).authors(authors2).genres(genres2).build());
 
 		// reviews
-		Book book1 = bookRepository.findById(1L).get();
+		Book book1 = bookRepository.findByIdAndIsEnabledTrue(1L).get();
 
 		reviewRepository.save(Review.builder().rating(new BigDecimal("4"))
 				.comment("Great book, enjoyed every chapter!").book(book1)
@@ -105,7 +105,7 @@ public class LibraryAppApplication implements CommandLineRunner {
 				.comment("Interesting read, although a bit slow at times.")
 				.book(book1).build());
 
-		Book book2 = bookRepository.findById(2L).get();
+		Book book2 = bookRepository.findByIdAndIsEnabledTrue(2L).get();
 
 		reviewRepository.save(Review.builder().rating(new BigDecimal("5"))
 				.comment("Absolutely loved it, couldn't put it down!")

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
                 loginRequest.getUsername(),
                 loginRequest.getPassword()));
 
-        User user =  userRepository.findByUsername(loginRequest.getUsername())
+        User user =  userRepository.findByUsernameAndIsEnabledTrue(loginRequest.getUsername())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         String token = jwtService.generateToken(user);
@@ -68,10 +69,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(value = "userss", key = "'allUsers'")
+    @Cacheable(value = "users", key = "'allUsers'")
     public Page<UserDto> getAllUsers(Pageable pageable) {
 
-        var users = userRepository.findAll(pageable);
+        var users = userRepository.findAllByIsEnabledTrue(pageable);
         var userDtos = users.map(userMapper:: entityToDto);
 
         return userDtos;
@@ -101,7 +102,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @CacheEvict(value = "users", key = "'userById_' + #id")
+    @Caching(evict = {
+            @CacheEvict(value = "users", key = "'allUsers'", allEntries = true),
+            @CacheEvict(value = "users", key = "'userById_' + #id")
+    })
     public void deleteUser(Long id) {
 
         var user = findById(id);
@@ -126,7 +130,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private User findById(Long id) {
-        return Optional.ofNullable(userRepository.findById(id)
+        return Optional.ofNullable(userRepository.findByIdAndIsEnabledTrue(id)
                         .orElseThrow(() -> new NotFoundException("User not found with id: " + id)))
                 .get();
     }

@@ -12,10 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@NamedEntityGraph(
-        name = "author-books-graph",
-        attributeNodes = @NamedAttributeNode("books")
-)
 public class Author {
 
     @Id
@@ -32,6 +28,8 @@ public class Author {
     private Boolean isEnabled = true;
 
     @ManyToMany(mappedBy = "authors")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Book> books = new HashSet<>();
 
 

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Cacheable(value = "authors", key = "'allAuthors'")
     public Page<AuthorDto> getAllAuthors(Pageable pageable) {
 
-        var authors = authorRepository.findAll(pageable);
+        var authors = authorRepository.findAllByIsEnabledTrue(pageable);
         var authorDtos = authors.map(authorMapper:: entityToDto);
 
         return authorDtos;
@@ -68,7 +69,10 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @CacheEvict(value = "authors", key = "'authorById_' + #id")
+    @Caching(evict = {
+            @CacheEvict(value = "authors", key = "'allAuthors'", allEntries = true),
+            @CacheEvict(value = "authors", key = "'authorById_' + #author.id")
+    })
     public void deleteAuthor(Long id) {
 
         var author = findById(id);
@@ -79,7 +83,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     private Author findById(Long id) {
-       return Optional.ofNullable(authorRepository.findById(id)
+       return Optional.ofNullable(authorRepository.findByIdAndIsEnabledTrue(id)
                 .orElseThrow(() -> new NotFoundException("Author not found with id: " + id))).get();
     }
 }

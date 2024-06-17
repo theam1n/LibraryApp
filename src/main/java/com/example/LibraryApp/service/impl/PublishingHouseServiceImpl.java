@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,8 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
     @Cacheable(value = "publishingHouses", key = "'allPublishingHouses'")
     public Page<PublishingHouseDto> getAllPublishingHouses(Pageable pageable) {
 
-        var publishingHouses = publishingHouseRepository.findAll(pageable);
+        var publishingHouses = publishingHouseRepository.
+                findAllByIsEnabledTrue(pageable);
         var publishingHouseDtos = publishingHouses.
                 map(publishingHouseMapper:: entityToDto);
 
@@ -72,7 +74,10 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
     }
 
     @Override
-    @CacheEvict(value = "publishingHouses", key = "'publishingHouseById_' + #id")
+    @Caching(evict = {
+            @CacheEvict(value = "publishingHouses", key = "'allPublishingHouses'", allEntries = true),
+            @CacheEvict(value = "publishingHouses", key = "'publishingHouseById_' + #id")
+    })
     public void deletePublishingHouse(Long id) {
 
         var publishingHouse = findById(id);
@@ -82,7 +87,7 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
     }
 
     private PublishingHouse findById(Long id) {
-        return Optional.ofNullable(publishingHouseRepository.findById(id)
+        return Optional.ofNullable(publishingHouseRepository.findByIdAndIsEnabledTrue(id)
                 .orElseThrow(() -> new NotFoundException("PublishingHouse not found with id: " + id)))
                 .get();
 

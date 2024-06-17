@@ -1,10 +1,7 @@
 package com.example.LibraryApp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +12,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@NamedEntityGraph(
-        name = "genre-books-graph",
-        attributeNodes = @NamedAttributeNode("books")
-)
 public class Genre {
 
     @Id
@@ -33,5 +26,7 @@ public class Genre {
     private Boolean isEnabled = true;
 
     @ManyToMany(mappedBy = "genres")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Book> books = new HashSet<>();
 }

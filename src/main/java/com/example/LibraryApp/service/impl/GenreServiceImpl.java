@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class GenreServiceImpl implements GenreService {
     @Cacheable(value = "genres", key = "'allGenres'")
     public Page<GenreDto> getAllGenres(Pageable pageable) {
 
-        var genres = genreRepository.findAll(pageable);
+        var genres = genreRepository.findAllByIsEnabledTrue(pageable);
         var genreDtos = genres.map(genreMapper:: entityToDto);
 
         return genreDtos;
@@ -68,7 +69,10 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    @CacheEvict(value = "genres", key = "'genreById_' + #id")
+    @Caching(evict = {
+            @CacheEvict(value = "genres", key = "'allGenres'", allEntries = true),
+            @CacheEvict(value = "genres", key = "'genreById_' + #id")
+    })
     public void deleteGenre(Long id) {
 
         var genre = findById(id);
@@ -78,7 +82,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     private Genre findById(Long id) {
-        return Optional.ofNullable(genreRepository.findById(id)
+        return Optional.ofNullable(genreRepository.findByIdAndIsEnabledTrue(id)
                 .orElseThrow(() -> new NotFoundException("Genre not found with id: " + id))).get();
     }
 }
