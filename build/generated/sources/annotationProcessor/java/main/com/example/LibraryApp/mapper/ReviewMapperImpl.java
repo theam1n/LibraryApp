@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-17T21:45:30+0400",
+    date = "2024-06-18T01:40:56+0400",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.8.jar, environment: Java 17.0.9 (IBM Corporation)"
 )
 @Component
@@ -247,75 +247,6 @@ public class ReviewMapperImpl implements ReviewMapper {
         return publishingHouseDto;
     }
 
-    protected AuthorDto authorToAuthorDto(Author author) {
-        if ( author == null ) {
-            return null;
-        }
-
-        AuthorDto authorDto = new AuthorDto();
-
-        if ( author.getId() != null ) {
-            authorDto.setId( author.getId() );
-        }
-        if ( author.getFirstName() != null ) {
-            authorDto.setFirstName( author.getFirstName() );
-        }
-        if ( author.getLastName() != null ) {
-            authorDto.setLastName( author.getLastName() );
-        }
-        if ( author.getBio() != null ) {
-            authorDto.setBio( author.getBio() );
-        }
-
-        return authorDto;
-    }
-
-    protected Set<AuthorDto> authorSetToAuthorDtoSet(Set<Author> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<AuthorDto> set1 = new LinkedHashSet<AuthorDto>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( Author author : set ) {
-            set1.add( authorToAuthorDto( author ) );
-        }
-
-        return set1;
-    }
-
-    protected GenreDto genreToGenreDto(Genre genre) {
-        if ( genre == null ) {
-            return null;
-        }
-
-        GenreDto genreDto = new GenreDto();
-
-        if ( genre.getId() != null ) {
-            genreDto.setId( genre.getId() );
-        }
-        if ( genre.getName() != null ) {
-            genreDto.setName( genre.getName() );
-        }
-        if ( genre.getDescription() != null ) {
-            genreDto.setDescription( genre.getDescription() );
-        }
-
-        return genreDto;
-    }
-
-    protected Set<GenreDto> genreSetToGenreDtoSet(Set<Genre> set) {
-        if ( set == null ) {
-            return null;
-        }
-
-        Set<GenreDto> set1 = new LinkedHashSet<GenreDto>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( Genre genre : set ) {
-            set1.add( genreToGenreDto( genre ) );
-        }
-
-        return set1;
-    }
-
     protected BookDto bookToBookDto(Book book) {
         if ( book == null ) {
             return null;
@@ -340,14 +271,6 @@ public class ReviewMapperImpl implements ReviewMapper {
         }
         if ( book.getPublishingHouse() != null ) {
             bookDto.setPublishingHouse( publishingHouseToPublishingHouseDto( book.getPublishingHouse() ) );
-        }
-        Set<AuthorDto> set = authorSetToAuthorDtoSet( book.getAuthors() );
-        if ( set != null ) {
-            bookDto.setAuthors( set );
-        }
-        Set<GenreDto> set1 = genreSetToGenreDtoSet( book.getGenres() );
-        if ( set1 != null ) {
-            bookDto.setGenres( set1 );
         }
 
         return bookDto;

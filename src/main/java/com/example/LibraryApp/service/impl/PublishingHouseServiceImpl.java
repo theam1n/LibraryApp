@@ -8,7 +8,6 @@ import com.example.LibraryApp.mapper.PublishingHouseMapper;
 import com.example.LibraryApp.repository.PublishingHouseRepository;
 import com.example.LibraryApp.service.PublishingHouseService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,7 +19,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PublishingHouseServiceImpl implements PublishingHouseService {
 
     private final PublishingHouseRepository publishingHouseRepository;
@@ -29,14 +27,11 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
 
     @Override
     public PublishingHouseDto savePublishingHouse(PublishingHouseRequest publishingHouseRequest) {
-        log.info("ActionLog.savePublishingHouse.start request: {}",publishingHouseRequest);
 
         var publishingHouse = publishingHouseMapper.
                 requestToEntity(publishingHouseRequest);
         var savedpublishingHouse = publishingHouseMapper.
                 entityToDto(publishingHouseRepository.save(publishingHouse));
-
-        log.info("ActionLog.savePublishingHouse.end response: {}",savedpublishingHouse);
 
         return savedpublishingHouse;
     }
@@ -44,12 +39,10 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
     @Override
     @Cacheable(value = "publishingHouses", key = "'allPublishingHouses'")
     public Page<PublishingHouseDto> getAllPublishingHouses(Pageable pageable) {
-        log.info("ActionLog.getAllPublishingHouses.start");
 
         var publishingHouses = publishingHouseRepository.findAll(pageable);
-        var publishingHouseDtos = publishingHouses.map(publishingHouseMapper:: entityToDto);
-
-        log.info("ActionLog.getAllPublishingHouses.end response: {}",publishingHouseDtos);
+        var publishingHouseDtos = publishingHouses.
+                map(publishingHouseMapper:: entityToDto);
 
         return publishingHouseDtos;
     }
@@ -57,12 +50,9 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
     @Override
     @Cacheable(value = "publishingHouses", key = "'publishingHouseById_' + #id")
     public PublishingHouseDto getPublishingHouseById(Long id) {
-        log.info("ActionLog.getPublishingHouseById.start request: {}",id);
 
         var publishingHouse = findById(id);
         var publishingHouseDto = publishingHouseMapper.entityToDto(publishingHouse);
-
-        log.info("ActionLog.getPublishingHouseById.end response: {}",publishingHouseDto);
 
         return publishingHouseDto;
     }
@@ -70,7 +60,6 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
     @Override
     @CachePut(value = "publishingHouses", key = "'publishingHouseById_' + #publishingHouse.id")
     public PublishingHouseDto updatePublishingHouse(PublishingHouseDto publishingHouse) {
-        log.info("ActionLog.updatePublishingHouse.start request: {}",publishingHouse);
 
         var existingPublishingHouse = findById(publishingHouse.getId());
 
@@ -79,22 +68,17 @@ public class PublishingHouseServiceImpl implements PublishingHouseService {
         var publishingHouseDto = publishingHouseMapper
                 .entityToDto(publishingHouseRepository.save(existingPublishingHouse));
 
-        log.info("ActionLog.updatePublishingHouse.end response: {}",publishingHouseDto);
-
         return publishingHouseDto;
     }
 
     @Override
     @CacheEvict(value = "publishingHouses", key = "'publishingHouseById_' + #id")
     public void deletePublishingHouse(Long id) {
-        log.info("ActionLog.deletePublishingHouse.start request: {}",id);
 
         var publishingHouse = findById(id);
 
         publishingHouse.setIsEnabled(false);
         publishingHouseRepository.save(publishingHouse);
-
-        log.info("ActionLog.deletePublishingHouse.end");
     }
 
     private PublishingHouse findById(Long id) {

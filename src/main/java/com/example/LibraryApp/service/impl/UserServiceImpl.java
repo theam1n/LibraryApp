@@ -11,7 +11,6 @@ import com.example.LibraryApp.mapper.UserMapper;
 import com.example.LibraryApp.repository.UserRepository;
 import com.example.LibraryApp.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,7 +25,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -41,21 +39,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto saveUser(UserRequest userRequest) {
-        log.info("ActionLog.saveUser.start request: {}",userRequest);
 
         userRequest.setPassword(passwordEncoder.encode(userRequest.getPassword()));
 
         var user = userMapper.requestToEntity(userRequest);
         var savedUser = userMapper.entityToDto(userRepository.save(user));
 
-        log.info("ActionLog.saveUser.end response: {}",savedUser);
-
         return savedUser;
     }
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
-        log.info("ActionLog.login.start loginRequest: {}",loginRequest);
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
@@ -70,20 +64,15 @@ public class UserServiceImpl implements UserService {
                 .token(token)
                 .build();
 
-        log.info("ActionLog.login.end loginRequest: {}",loginResponse);
-
         return loginResponse;
     }
 
     @Override
     @Cacheable(value = "userss", key = "'allUsers'")
     public Page<UserDto> getAllUsers(Pageable pageable) {
-        log.info("ActionLog.getAllUsers.start");
 
         var users = userRepository.findAll(pageable);
         var userDtos = users.map(userMapper:: entityToDto);
-
-        log.info("ActionLog.getAllUsers.end response: {}",userDtos);
 
         return userDtos;
     }
@@ -91,12 +80,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Cacheable(value = "users", key = "'userById_' + #id")
     public UserDto getUserById(Long id) {
-        log.info("ActionLog.getUserById.start request: {}",id);
 
         var user = findById(id);
         var userDto = userMapper.entityToDto(user);
-
-        log.info("ActionLog.getUserById.end response: {}",userDto);
 
         return userDto;
     }
@@ -104,7 +90,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @CachePut(value = "users", key = "'userById_' + #user.id")
     public UserDto updateUser(UserDto user) {
-        log.info("ActionLog.updateUser.start request: {}",user);
 
         var existingUser = findById(user.getId());
 
@@ -112,27 +97,21 @@ public class UserServiceImpl implements UserService {
 
         var userDto = userMapper.entityToDto(userRepository.save(existingUser));
 
-        log.info("ActionLog.updateUser.end response: {}",userDto);
-
         return userDto;
     }
 
     @Override
     @CacheEvict(value = "users", key = "'userById_' + #id")
     public void deleteUser(Long id) {
-        log.info("ActionLog.deleteUser.start request: {}",id);
 
         var user = findById(id);
 
         user.setIsEnabled(false);
         userRepository.save(user);
-
-        log.info("ActionLog.deleteUser.end");
     }
 
     @Override
     public void changePassword(Long id, String newPassword, String newPasswordRepeat) {
-        log.info("ActionLog.changePassword.start request: {}",id);
 
         if (!newPassword.equals(newPasswordRepeat)) {
             throw new IllegalArgumentException("Passwords do not match");
@@ -144,8 +123,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword.toCharArray());
 
         userRepository.save(user);
-
-        log.info("ActionLog.changePassword.end");
     }
 
     private User findById(Long id) {

@@ -36,11 +36,7 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity<Page<ReviewDto>> getAllReviews(Pageable pageable){
 
-        log.debug("Fetching all reviews with pageable: {}", pageable);
         Page<ReviewDto> response = reviewService.getAllReviews(pageable);
-
-        log.debug("Fetched reviews successfully, total elements: {}, content: {}", response.getTotalElements(), response.getContent());
-
 
         return ResponseEntity.ok(response);
     }

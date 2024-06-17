@@ -8,7 +8,6 @@ import com.example.LibraryApp.mapper.GenreMapper;
 import com.example.LibraryApp.repository.GenreRepository;
 import com.example.LibraryApp.service.GenreService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,7 +19,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
@@ -29,12 +27,9 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDto saveGenre(GenreRequest genreRequest) {
-        log.info("ActionLog.saveGenre.start request: {}",genreRequest);
 
         var genre = genreMapper.requestToEntity(genreRequest);
         var savedGenre = genreMapper.entityToDto(genreRepository.save(genre));
-
-        log.info("ActionLog.saveGenre.end response: {}",savedGenre);
 
         return savedGenre;
     }
@@ -42,12 +37,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     @Cacheable(value = "genres", key = "'allGenres'")
     public Page<GenreDto> getAllGenres(Pageable pageable) {
-        log.info("ActionLog.getAllGenres.start");
 
         var genres = genreRepository.findAll(pageable);
         var genreDtos = genres.map(genreMapper:: entityToDto);
-
-        log.info("ActionLog.getAllGenres.end response: {}",genreDtos);
 
         return genreDtos;
     }
@@ -55,12 +47,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     @Cacheable(value = "genres", key = "'genreById_' + #id")
     public GenreDto getGenreById(Long id) {
-        log.info("ActionLog.getGenreById.start request: {}",id);
 
         var genre = findById(id);
         var genreDto = genreMapper.entityToDto(genre);
-
-        log.info("ActionLog.getGenreById.end response: {}",genreDto);
 
         return genreDto;
     }
@@ -68,7 +57,6 @@ public class GenreServiceImpl implements GenreService {
     @Override
     @CachePut(value = "genres", key = "'genreById_' + #genre.id")
     public GenreDto updateGenre(GenreDto genre) {
-        log.info("ActionLog.updateGenre.start request: {}",genre);
 
         var existingGenre = findById(genre.getId());
 
@@ -76,22 +64,17 @@ public class GenreServiceImpl implements GenreService {
 
         var genreDto = genreMapper.entityToDto(genreRepository.save(existingGenre));
 
-        log.info("ActionLog.updateGenre.end response: {}",genreDto);
-
         return genreDto;
     }
 
     @Override
     @CacheEvict(value = "genres", key = "'genreById_' + #id")
     public void deleteGenre(Long id) {
-        log.info("ActionLog.deleteGenre.start request: {}",id);
 
         var genre = findById(id);
 
         genre.setIsEnabled(false);
         genreRepository.save(genre);
-
-        log.info("ActionLog.deleteGenre.end");
     }
 
     private Genre findById(Long id) {

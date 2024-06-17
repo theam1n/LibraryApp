@@ -1,10 +1,8 @@
 package com.example.LibraryApp;
 
 import com.example.LibraryApp.entity.*;
-import com.example.LibraryApp.mapper.BookMapper;
 import com.example.LibraryApp.mapper.UserMapper;
 import com.example.LibraryApp.repository.*;
-import com.example.LibraryApp.service.ReviewService;
 import com.example.LibraryApp.service.UserService;
 import com.example.LibraryApp.service.impl.ReviewServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -117,7 +114,6 @@ public class LibraryAppApplication implements CommandLineRunner {
 		reviewRepository.save(Review.builder().rating(new BigDecimal("2"))
 				.comment("Not my cup of tea, too predictable.")
 				.book(book2).build());
-
 
 	}
 }

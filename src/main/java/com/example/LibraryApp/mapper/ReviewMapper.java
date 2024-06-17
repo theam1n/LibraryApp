@@ -14,6 +14,8 @@ public interface ReviewMapper {
     Review requestToEntity(ReviewRequest reviewRequest);
 
     @Mapping(target = "lastUpdateDate", source = "updatedAt")
+    @Mapping(target = "book.authors", ignore = true)
+    @Mapping(target = "book.genres", ignore = true)
     ReviewDto entityToDto(Review review);
 
     void updateEntityFromDto(ReviewDto dto, @MappingTarget Review entity);
